@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabela</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Adicione os scripts do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB1Ixikn1ZqBnjh3bBvb2OQVAXC0RVJ6TA",
+            authDomain: "formulariotest-f41be.firebaseapp.com",
+            projectId: "formulariotest-f41be",
+            storageBucket: "formulariotest-f41be.firebasestorage.app",
+            messagingSenderId: "636885984473",
+            appId: "1:636885984473:web:b01cc4da6853b88db50ac8",
+            measurementId: "G-BCG54P6VL2"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 </head>
 
 <body>
@@ -17,7 +38,6 @@
                     <h1>Formulário de Matricula Escolar</h1>
                     <img src="logotipo-da-escola-primaria-de-livro-desenhado-a-mao_23-2149689287.avif" width="200"
                         height="200" class="textwrap">
-
                 </div>
                 <td>
                     <center><b>CAROS PAIS E/OU RESPONSÁVEL</b></center>
@@ -35,36 +55,36 @@
             <tr>
                 <td>
                     <br>
-                    <form method="post" action="mailto:seuemail@email.com">
+                    <form id="matriculaForm">
                         Nome:
-                        <input type="text" size="10" maxlength="40" name="name" />
+                        <input type="text" size="10" maxlength="40" id="nome" required />
                         Sobrenome:
-                        <input type="text" size="10" maxlength="40" name="name" />
+                        <input type="text" size="10" maxlength="40" id="sobrenome" required />
 
                         <p>Nível de Escolaridade</p>
-                        <select name="nivelescolaridade">
-                            <option>1º Ano</option>
-                            <option>2º Ano</option>
-                            <option>3º Ano</option>
-                            <option>4º Ano</option>
-                            <option>5º Ano</option>
-                            <option>6º Ano</option>
+                        <select id="nivelEscolaridade" required>
+                            <option value="">Selecione</option>
+                            <option value="1º Ano">1º Ano</option>
+                            <option value="2º Ano">2º Ano</option>
+                            <option value="3º Ano">3º Ano</option>
+                            <option value="4º Ano">4º Ano</option>
+                            <option value="5º Ano">5º Ano</option>
+                            <option value="6º Ano">6º Ano</option>
                         </select>
                         <br><br>
 
                         Data de nascimento:
-                        <input type="name" size="10" maxlength="10" name="name" />
+                        <input type="date" id="dataNascimento" required />
 
                         Estado:
-                        <input type="name" size="10" maxlength="10" name="name" />
+                        <input type="text" size="10" maxlength="10" id="estado" required />
 
                         <p>Genero</p>
-
-                        <input type="radio" name="Genero" value="masculino" />
+                        <input type="radio" name="genero" value="masculino" required />
                         Masculino
-                        <input type="radio" name="Genero" value="feminino" />
+                        <input type="radio" name="genero" value="feminino" />
                         Feminino
-                        <input type="radio" name="Genero" value="outro" />
+                        <input type="radio" name="genero" value="outro" />
                         Outro<br>
 
             <tr>
@@ -76,9 +96,9 @@
                 <td>
                     <br>
                     Nome do pai:
-                    <input type="name" size="10" maxlength="10" name="name" />
+                    <input type="text" size="10" maxlength="10" id="nomePai" required />
                     Nome da mãe:
-                    <input type="name" size="10" maxlength="10" name="name" />
+                    <input type="text" size="10" maxlength="10" id="nomeMae" required />
                 </td><br>
             <tr>
                 <td>
@@ -89,29 +109,30 @@
                 <td>
                     <br>
                     Logradouro:
-                    <input type="name" size="12" maxlength="10" name="name" />
+                    <input type="text" size="12" maxlength="10" id="logradouro" required />
                     Cidade:
-                    <input type="name" size="13" maxlength="10" name="name" />
+                    <input type="text" size="13" maxlength="10" id="cidade" required />
 
                     Estado:
-                    <select name="nivelescolaridade">
-                        <option>Acre</option>
-                        <option>São Paulo</option>
-                        <option>Brasília</option>
-                        <option>Pará</option>
-                        <option>Rio Grande do Sul</option>
-                        <option>Goiás</option>
+                    <select id="estadoEndereco" required>
+                        <option value="">Selecione</option>
+                        <option value="Acre">Acre</option>
+                        <option value="São Paulo">São Paulo</option>
+                        <option value="Brasília">Brasília</option>
+                        <option value="Pará">Pará</option>
+                        <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                        <option value="Goiás">Goiás</option>
                     </select>
 
                     CEP:
-                    <input type="name" size="10" maxlength="10" name="name" />
+                    <input type="text" size="10" maxlength="10" id="cep" required />
                     Telefone Residencial:
-                    <input type="name" size="15" maxlength="10" name="name" />
+                    <input type="tel" size="15" maxlength="15" id="telefoneResidencial" />
                     <br><br>
                     Telefone Celular:
-                    <input type="name" size="15" maxlength="10" name="name" />
+                    <input type="tel" size="15" maxlength="15" id="telefoneCelular" required />
                     Email:
-                    <input type="name" size="15" maxlength="10" name="name" />
+                    <input type="email" size="15" maxlength="30" id="email" required />
 
             <tr>
                 <td>
@@ -123,57 +144,94 @@
             <tr>
                 <td>
                     <p>Há alguma informação relacionada ao estudante, que você gostaria que a escola tivesse ciente?</p>
-
-                    <input type="radio" name="escolha" value="sim" />
+                    <input type="radio" name="infoAdicional" value="sim" id="infoAdicionalSim" />
                     Sim
-                    <input type="radio" name="escolha" value="não" />
+                    <input type="radio" name="infoAdicional" value="não" id="infoAdicionalNao" checked />
                     Não
 
                     <p>Você deseja solicitar serviços de transporte para o estudante?</p>
-
-                    <input type="radio" name="escolha" value="sim" />
+                    <input type="radio" name="transporte" value="sim" id="transporteSim" />
                     Sim
-                    <input type="radio" name="escolha" value="não" />
+                    <input type="radio" name="transporte" value="não" id="transporteNao" checked />
                     Não
 
                     <p>O aluno necessita de alguma adaptação especial?</p>
-
-                    <input type="radio" name="escolha" value="sim" />
+                    <input type="radio" name="adaptacao" value="sim" id="adaptacaoSim" />
                     Sim
-                    <input type="radio" name="escolha" value="não" />
+                    <input type="radio" name="adaptacao" value="não" id="adaptacaoNao" checked />
                     Não<br>
 
                     <textarea cols="50" rows="25" name="texto" wrap="soft" readonly>
-                                                    CLÁUSULA 1ª. A CONTRATADA obriga-se a ministrar na Unidade Escolar, seu estabelecimento
-                                                    mantido, educação que vise o desenvolvimento harmônico das faculdades físicas, intelectuais,
-                                                    2
-                                                    espirituais e morais do educando, na modalidade presencial, semi-presencial, síncrona ou à
-                                                    distância, bem como quando autorizado pelos órgãos governamentais, a substituição das
-                                                    disciplinas presenciais por atividades letivas que utilizem recursos educacionais digitais,
-                                                    tecnologias da informação e comunicação, ou outros meios convencionais, sempre respeitados o
-                                                    projeto pedagógico, plano de estudos, programas e currículos da CONTRATADA, e demais normas
-                                                    da legislação pertinente em vigor, conforme o calendário escolar do período letivo contratado.
-                                                    Parágrafo Único – A filosofia educacional da CONTRATADA é de natureza diferenciada,
-                                                    embasada em princípios essencialmente cristãos, como escola confessional e filantrópica
-                                                    estabelecida nos termos da LDB – Lei nº 9394/96, artigo 19, incisos II, III e § 1º.
-                                                    </textarea>
+CLÁUSULA 1ª. A CONTRATADA obriga-se a ministrar na Unidade Escolar, seu estabelecimento
+mantido, educação que vise o desenvolvimento harmônico das faculdades físicas, intelectuais,
+espirituais e morais do educando, na modalidade presencial, semi-presencial, síncrona ou à
+distância, bem como quando autorizado pelos órgãos governamentais, a substituição das
+disciplinas presenciais por atividades letivas que utilizem recursos educacionais digitais,
+tecnologias da informação e comunicação, ou outros meios convencionais, sempre respeitados o
+projeto pedagógico, plano de estudos, programas e currículos da CONTRATADA, e demais normas
+da legislação pertinente em vigor, conforme o calendário escolar do período letivo contratado.
+Parágrafo Único – A filosofia educacional da CONTRATADA é de natureza diferenciada,
+embasada em princípios essencialmente cristãos, como escola confessional e filantrópica
+estabelecida nos termos da LDB – Lei nº 9394/96, artigo 19, incisos II, III e § 1º.
+</textarea>
 
                     <p>Declaro que estou ciente dos termos e que devo cumprir as regras do regulamento</p>
-                    <input type="radio" name="escolha" value="sim" /><br><br>
+                    <input type="checkbox" id="termosAceitos" required /> Li e aceito os termos<br><br>
 
-                    <input type="submit" value="Enviar" />
+                    <button type="submit">Enviar</button>
+                    <div id="mensagem"></div>
                 </td>
-
-            <tr>
-
-                </td><br>
-            <tr>
             </tr>
             </form>
             </td>
             </tr>
         </table>
     </center>
-</body>
 
+    <script>
+        // Manipulador do formulário
+        document.getElementById('matriculaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coletar dados do formulário
+            const genero = document.querySelector('input[name="genero"]:checked').value;
+            const infoAdicional = document.querySelector('input[name="infoAdicional"]:checked').value;
+            const transporte = document.querySelector('input[name="transporte"]:checked').value;
+            const adaptacao = document.querySelector('input[name="adaptacao"]:checked').value;
+            
+            const matriculaData = {
+                nome: document.getElementById('nome').value,
+                sobrenome: document.getElementById('sobrenome').value,
+                nivelEscolaridade: document.getElementById('nivelEscolaridade').value,
+                dataNascimento: document.getElementById('dataNascimento').value,
+                estado: document.getElementById('estado').value,
+                genero: genero,
+                nomePai: document.getElementById('nomePai').value,
+                nomeMae: document.getElementById('nomeMae').value,
+                logradouro: document.getElementById('logradouro').value,
+                cidade: document.getElementById('cidade').value,
+                estadoEndereco: document.getElementById('estadoEndereco').value,
+                cep: document.getElementById('cep').value,
+                telefoneResidencial: document.getElementById('telefoneResidencial').value,
+                telefoneCelular: document.getElementById('telefoneCelular').value,
+                email: document.getElementById('email').value,
+                infoAdicional: infoAdicional,
+                transporte: transporte,
+                adaptacao: adaptacao,
+                termosAceitos: document.getElementById('termosAceitos').checked,
+                dataCadastro: new Date().toISOString()
+            };
+
+            // Enviar para o Firestore
+            db.collection("matriculas").add(matriculaData)
+                .then((docRef) => {
+                    document.getElementById('mensagem').innerHTML = "Matrícula enviada com sucesso! ID: " + docRef.id;
+                    document.getElementById('matriculaForm').reset();
+                })
+                .catch((error) => {
+                    document.getElementById('mensagem').innerHTML = "Erro ao enviar matrícula: " + error.message;
+                });
+        });
+    </script>
+</body>
 </html>
